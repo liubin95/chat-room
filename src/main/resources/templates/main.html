@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml"
+>
+    <head>
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+        <title>xChat -Responsive Multi-purpose HTML5 Template</title>
+        <meta content="Cabe - Responsive Multi-purpose HTML5 Template" name="description">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+
+        <!-- STYLESHEETS -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet">
+        <link media="all" rel="stylesheet" th:href="@{../static/css/owl.carousel.min.css}" type="text/css">
+        <link media="all" rel="stylesheet" th:href="@{../static/css/owl.theme.default.min.css}" type="text/css">
+        <link rel="stylesheet" th:href="@{../static/css/themify-icons.css}">
+        <link media="all" rel="stylesheet" th:href="@{../static/css/main.min.css}" type="text/css">
+        <style>
+            .selected {
+                background-color: #DDDDDD;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <!-- page tour modal -->
+        <div class="modal fade show" id="pagetour">
+            <div class="modal-dialog modal-lg modal-md modal-dialog-centered modal-dialog-zoom">
+                <div class="modal-content text-center" style="background-image: url(../static/images/bg-2.png);">
+                    <div class="owl-carousel owl-theme slider-1">
+                        <div class="item">
+                            <img alt="modal" th:src="@{../static/images/bg-1.png}">
+                            <h4 class="text-primary">Would you like to take a short page tour?</h4>
+                            <button aria-label="Close" class="btn btn-link tour-close-btn" data-dismiss="modal"
+                                    type="button">Skip
+                            </button>
+                            <button class="btn btn-primary start-tour" type="button">Start Tour</button>
+
+                        </div>
+                        <div class="item">
+                            <img alt="modal" th:src="@{../static/images/bg-1.png}">
+                            <h4 class="text-primary">You can strat a new group to chat with all your friends!</h4>
+                            <button aria-label="Close" class="btn btn-link tour-close-btn" data-dismiss="modal"
+                                    type="button">Skip
+                            </button>
+                            <button class="btn btn-primary next-tour" type="button">Next</button>
+                        </div>
+                        <div class="item">
+                            <img alt="modal" th:src="@{../static/images/bg-1.png}">
+                            <h4 class="text-primary">Hope you like short page tour!</h4>
+                            <button class="btn btn-primary start-tour tour-close-btn" type="button">Finish</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- page tour modal -->
+
+        <!-- add friend modal -->
+        <div class="modal fade show" id="addfriend">
+            <div class="modal-dialog modal-md modal-md modal-dialog-centered modal-dialog-zoom">
+                <div class="modal-content pb-0 d-flex justify-content-between text-center">
+                    <div class="modal-content pb-0">
+                        <div class="modal-header add-friend">
+                            <h5 class="modal-title">
+                                <svg class="feather feather-user-plus mr-2" fill="none" height="24"
+                                     stroke="currentColor"
+                                     stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                     width="24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="8.5" cy="7" r="4"></circle>
+                                    <line x1="20" x2="20" y1="8" y2="14"></line>
+                                    <line x1="23" x2="17" y1="11" y2="11"></line>
+                                </svg>
+                                Add Friends
+                            </h5>
+                            <button aria-label="close" class="close" data-dismiss="addfriend" id="addfriend-close"
+                                    type="button">
+                                <i class="ti-close text-white"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body add-friend pl-4 pr-4">
+                            <div class="alert alert-info text-left">Send invitations to friends.</div>
+                            <form>
+                                <div class="form-group text-left">
+                                    <label class="col-form-label" for="emails">Email addresses</label>
+                                    <input class="form-control" id="emails" type="text">
+                                </div>
+                                <div class="form-group text-left">
+                                    <label class="col-form-label" for="message">Invitation message</label>
+                                    <textarea class="form-control" id="message"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer add-friend">
+                            <button class="btn btn-primary" type="button">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- add friend modal -->
+
+        <!-- video call modal -->
+        <div class="modal fade show" id="videocall">
+            <div class="modal-dialog modal-lg modal-md modal-dialog-centered modal-dialog-zoom">
+                <div class="modal-content pb-0 d-flex justify-content-between text-center bgi-center"
+                     style="background-image: url(../static/images/video.jpg); min-height: 500px;">
+                    <div class="modal-header">
+                        <a class="live" href="#">LIVE</a>
+                        <a class="icon-full" href="#"><i class="ti-fullscreen"></i></a>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <a class="icon-bttn bg-danger" href="#" id="video-close"><i class="ti-close text-white"></i></a>
+                        <a class="icon-bttn bg-success" href="#"><i class="ti-check text-white"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- video call modal -->
+
+
+        <!-- main wrapper -->
+        <div class="main-wrapper" id="app">
+            <!-- navigation -->
+            <nav class="navigation">
+                <div class="container pl-0 pr-0">
+                    <div class="nav-content">
+                        <ul>
+                            <li class="logo d-none d-xl-block d-lg-block"><a href="#"><img
+                                    alt="logo"
+                                    th:src="@{../static/images/logo.png}"></a></li>
+                            <li><a class="active nav-content-bttn" data-tab="chats" href="#"><span
+                                    class="circle-icon bg-warning"></span><i class="ti-comments"></i></a></li>
+                            <li><a class="nav-content-bttn" data-tab="friends" href="#"><span
+                                    class="circle-icon bg-danger"></span><i class="ti-user"></i></a></li>
+                            <li><a class="nav-content-bttn" data-tab="favorites" href="#"><i class="ti-heart"></i></a>
+                            </li>
+                            <li class="flex-lg-brackets"><a class="nav-content-bttn" data-tab="archived" href="#"><i
+                                    class="ti-archive"></i></a></li>
+
+                            <li class="d-none d-xl-block d-lg-block night-mode"><a href="#"><i
+                                    class="ti-flickr-alt"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- 导航 -->
+            <div class="right-content">
+                <div class="left-sidebar">
+
+                    <div class="chat-header">
+                        <div class="chat-header-user">
+                            <figure class="avatar">
+                                <a class="profile-detail-bttn" href="#"><img alt="image"
+                                                                             class="rounded-circle"
+                                                                             th:src="@{../static/images/user-7.png}"></a>
+                            </figure>
+                            <div>
+                                <h5 class="mt-0 mb-0" id="myName" th:text="${session.loginUser.userName}"></h5>
+                                <small class="text-success" th:text="${session.loginUser.email}">
+                                </small>
+                                <input id="userId" style="display: none"
+                                       th:value="${session.loginUser.id}">
+                            </div>
+                        </div>
+                        <div class="chat-header-action nav-content">
+                            <ul class="list-inline mb-1 mt-3">
+                                <li class="list-inline-item mr-3"><a href="#" v-on:click="refreshFriends()"><i
+                                        class="ti-reload"></i></a></li>
+                                <li class="list-inline-item mr-3"><a class="nav-content-bttn" data-tab="settings"
+                                                                     href="#"><i class="ti-settings"></i></a>
+                                </li>
+                                <li class="list-inline-item"><a class="nav-content-bttn" data-tab="notification"
+                                                                href="#"><span
+                                        class="circle-icon bg-warning"></span><i
+                                        class="ti-bell"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="sidebar active" id="chats">
+
+                        <div class="text-left mb-2 mt-3">
+                            <h2 class="title-text"><b>Recent</b> Chats</h2>
+                        </div>
+                        <div class="row pl-2 pr-2" style="max-width:450px;">
+                            <div class="owl-carousel owl-theme slider-0">
+                                <div class="item">
+                                    <div class="recent-chat float-left">
+                                        <div class="user"><img alt="" th:src="@{../static/images/user-2.png}"></div>
+                                        <h3 class="mb-1">Lewis Kindred</h3>
+                                        <span>23 min ago</span>
+                                        <a href="#"><i class="ti-more-alt"></i></a>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="recent-chat float-left">
+                                        <div class="user"><img alt="" th:src="@{../static/images/user-3.png}"></div>
+                                        <h3 class="mb-1">Moris Joshph</h3>
+                                        <span>23 min ago</span>
+                                        <a href="#"><i class="ti-more-alt"></i></a>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="recent-chat float-left">
+                                        <div class="user"><img alt="" th:src="@{../static/images/user-4.png}"></div>
+                                        <h3 class="mb-1">Bob Pasigon</h3>
+                                        <span>23 min ago</span>
+                                        <a href="#"><i class="ti-more-alt"></i></a>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <div class="recent-chat float-left">
+                                        <div class="user"><img alt="" th:src="@{../static/images/user-8.png}"></div>
+                                        <h3 class="mb-1">Lewis Kindred</h3>
+                                        <span>23 min ago</span>
+                                        <a href="#"><i class="ti-more-alt"></i></a>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <div class="recent-chat float-left">
+                                        <div class="user"><img alt="" th:src="@{../static/images/user-2.png}"></div>
+                                        <h3 class="mb-1">Lewis Kindred</h3>
+                                        <span>23 min ago</span>
+                                        <a href="#"><i class="ti-more-alt"></i></a>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="recent-chat float-left">
+                                        <div class="user"><img alt="" th:src="@{../static/images/user-3.png}"></div>
+                                        <h3 class="mb-1">Moris Joshph</h3>
+                                        <span>23 min ago</span>
+                                        <a href="#"><i class="ti-more-alt"></i></a>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="recent-chat float-left">
+                                        <div class="user"><img alt="" th:src="@{../static/images/user-4.png}"></div>
+                                        <h3 class="mb-1">Bob Pasigon</h3>
+                                        <span>23 min ago</span>
+                                        <a href="#"><i class="ti-more-alt"></i></a>
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <div class="recent-chat float-left">
+                                        <div class="user"><img alt="" th:src="@{../static/images/user-8.png}"></div>
+                                        <h3 class="mb-1">Lewis Kindred</h3>
+                                        <span>23 min ago</span>
+                                        <a href="#"><i class="ti-more-alt"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-content">
+                            <form action="#" class="mb-3 mt-3">
+                                <input class="form-control" placeholder="Type name to find contact" type="text">
+                            </form>
+                        </div>
+                        <div class="text-left mb-1 mt-0">
+                            <h2 class="title-text"><b>Contacts</b> Room</h2>
+                        </div>
+                        <div class="chat-list-content">
+                            <ul class="chat-list">
+                                <li class="chat-list-item">
+                                    <figure class="avatar user-online">
+                                        <img alt="image" th:src="@{../static/images/user-2.png}">
+                                    </figure>
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-0 mt-2">Hurin Seary</h3>
+                                            <p>What's up, how are you?</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <div class="message-count bg-primary">3</div>
+                                            <small class="text-primary">03:41 PM</small>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="chat-list-item">
+                                    <figure class="avatar user-online">
+                                        <img alt="image" th:src="@{../static/images/user-6.png}">
+                                    </figure>
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-0 mt-2">Victor Exrixon</h3>
+                                            <p>What's up, how are you?</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <div class="message-count bg-primary">3</div>
+                                            <small class="text-primary">03:41 PM</small>
+                                        </div>
+                                    </div>
+
+                                </li>
+                                <li class="chat-list-item">
+                                    <figure class="avatar user-online">
+                                        <img alt="image" th:src="@{../static/images/user-5.png}">
+                                    </figure>
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-0 mt-2">Surfiya Zakir</h3>
+                                            <p>What's up, how are you?</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <div class="message-count bg-primary">1</div>
+                                            <small class="text-primary">Yesterday</small>
+                                        </div>
+                                    </div>
+
+                                </li>
+                                <li class="chat-list-item">
+                                    <figure class="avatar user-online">
+                                        <img alt="image" th:src="@{../static/images/user-8.png}">
+                                    </figure>
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-0 mt-2">John Ive</h3>
+                                            <p>What's up, how are you?</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <small>03:41 PM</small>
+                                        </div>
+                                    </div>
+
+                                </li>
+                                <li class="chat-list-item">
+                                    <figure class="avatar user-online">
+                                        <img alt="image" th:src="@{../static/images/user-9.png}">
+                                    </figure>
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-0 mt-2">Goria Coast</h3>
+                                            <p>What's up, how are you?</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <small>03:41 PM</small>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="chat-list-item">
+                                    <figure class="avatar user-online">
+                                        <img alt="image" th:src="@{../static/images/user-3.png}">
+                                    </figure>
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-0 mt-2">John Ive</h3>
+                                            <p>What's up, how are you?</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <small>03:41 PM</small>
+                                        </div>
+                                    </div>
+
+                                </li>
+                                <li class="chat-list-item">
+                                    <figure class="avatar user-online">
+                                        <img alt="image" th:src="@{../static/images/user-2.png}">
+                                    </figure>
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-0 mt-2">Goria Coast</h3>
+                                            <p>What's up, how are you?</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <small>03:41 PM</small>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="chat-list-item">
+                                    <figure class="avatar user-online">
+                                        <img alt="image" th:src="@{../static/images/user-8.png}">
+                                    </figure>
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-0 mt-2">John Ive</h3>
+                                            <p>What's up, how are you?</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <small>03:41 PM</small>
+                                        </div>
+                                    </div>
+
+                                </li>
+                                <li class="chat-list-item">
+                                    <figure class="avatar user-online">
+                                        <img alt="image" th:src="@{../static/images/user-9.png}">
+                                    </figure>
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-0 mt-2">Goria Coast</h3>
+                                            <p>What's up, how are you?</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <small>03:41 PM</small>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="chat-list-item">
+                                    <figure class="avatar user-online">
+                                        <img alt="image" th:src="@{../static/images/user-3.png}">
+                                    </figure>
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-0 mt-2">John Ive</h3>
+                                            <p>What's up, how are you?</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <small>03:41 PM</small>
+                                        </div>
+                                    </div>
+
+                                </li>
+                                <li class="chat-list-item">
+                                    <figure class="avatar user-online">
+                                        <img alt="image" th:src="@{../static/images/user-2.png}">
+                                    </figure>
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-0 mt-2">Goria Coast</h3>
+                                            <p>What's up, how are you?</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <small>03:41 PM</small>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sidebar" id="friends">
+                        <div class="text-left mb-2 mt-3">
+                            <h2 class="title-text"><b>Friends</b> Room </h2>
+                        </div>
+                        <div class="form-content">
+                            <form action="#" class="mb-3 mt-1">
+                                <input class="form-control" placeholder="Type name to find contact" type="text">
+                            </form>
+                        </div>
+                        <!--好友列表-->
+                        <div class="chat-list-content">
+                            <ul class="chat-list">
+                                <li :class="{'selected':receiveId==item.id}"
+                                    @click="clickFriend(item)"
+                                    class="chat-list-item"
+                                    v-for="item in friendList">
+                                    <figure class="avatar user-online">
+                                        <img alt="image" th:src="@{../static/images/user-2.png}">
+                                    </figure>
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-1 mt-1">{{item.userName}}</h3>
+                                            <p>{{item.lastMsg}}</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <div class="message-count bg-primary" v-if="item.unreadMsgNum!=0">
+                                                {{item.unreadMsgNum}}
+                                            </div>
+                                            <div class="message-count" v-else
+                                                 style="height: 22px">
+                                            </div>
+                                            <small class="text-primary">{{item.lastMsgTime}}</small>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sidebar" id="favorites">
+                        <div class="text-left mb-2 mt-3">
+                            <h2 class="title-text"><b>Favorites</b> Room </h2>
+                        </div>
+                        <div class="form-content">
+                            <form action="#" class="mb-3 mt-1">
+                                <input class="form-control" placeholder="Type name to find contact" type="text">
+                            </form>
+                        </div>
+                        <div class="chat-list-content">
+                            <ul class="chat-list">
+                                <li class="chat-list-item">
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-0 mt-2">Hurin Seary</h3>
+                                            <p>What's up, how are you?</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <div class="dropdown">
+                                                <a class="more dropdown-toggle" data-toggle="dropdown" href="#"><i
+                                                        class="ti-more-alt"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#">Open</a>
+                                                    <a class="dropdown-item" href="#">Restore</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item text-danger" href="#">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="chat-list-item">
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-0 mt-2">Victor Exrixon</h3>
+                                            <p>What's up, how are you?</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <div class="dropdown">
+                                                <a class="more dropdown-toggle" data-toggle="dropdown" href="#"><i
+                                                        class="ti-more-alt"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#">Open</a>
+                                                    <a class="dropdown-item" href="#">Restore</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item text-danger" href="#">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="chat-list-item">
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-0 mt-2">Surfiya Zakir</h3>
+                                            <p>What's up, how are you?</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <div class="dropdown">
+                                                <a class="more dropdown-toggle" data-toggle="dropdown" href="#"><i
+                                                        class="ti-more-alt"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#">Open</a>
+                                                    <a class="dropdown-item" href="#">Restore</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item text-danger" href="#">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="chat-list-item">
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-0 mt-2">John Ive</h3>
+                                            <p>What's up, how are you?</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <div class="dropdown">
+                                                <a class="more dropdown-toggle" data-toggle="dropdown" href="#"><i
+                                                        class="ti-more-alt"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#">Open</a>
+                                                    <a class="dropdown-item" href="#">Restore</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item text-danger" href="#">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="chat-list-item">
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-0 mt-2">Goria Coast</h3>
+                                            <p>What's up, how are you?</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <div class="dropdown">
+                                                <a class="more dropdown-toggle" data-toggle="dropdown" href="#"><i
+                                                        class="ti-more-alt"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#">Open</a>
+                                                    <a class="dropdown-item" href="#">Restore</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item text-danger" href="#">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sidebar" id="archived">
+                        <div class="text-left mb-2 mt-3">
+                            <h2 class="title-text"><b>Archived</b> Room </h2>
+                        </div>
+                        <div class="form-content">
+                            <form action="#" class="mb-3 mt-1">
+                                <input class="form-control" placeholder="Seacrh archived.." type="text">
+                            </form>
+                        </div>
+                        <div class="chat-list-content">
+                            <ul class="chat-list">
+                                <li class="chat-list-item">
+                                    <figure class="avatar user-online">
+                                        <span class="avatar-title bg-primary rounded-circle">M</span>
+                                    </figure>
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-1 mt-1">Hurin Seary</h3>
+                                            <p>What's up, how are you?</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <small>03:41 PM</small>
+                                            <div class="dropdown">
+                                                <a class="more dropdown-toggle" data-toggle="dropdown" href="#"><i
+                                                        class="ti-more-alt"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#">Open</a>
+                                                    <a class="dropdown-item" href="#">Restore</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item text-danger" href="#">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="chat-list-item">
+                                    <figure class="avatar user-online">
+                                        <span class="avatar-title bg-danger rounded-circle">R</span>
+                                    </figure>
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-1 mt-1">Victor Exrixon</h3>
+                                            <p>What's up, how are you?</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <small>03:41 PM</small>
+                                            <div class="dropdown">
+                                                <a class="more dropdown-toggle" data-toggle="dropdown" href="#"><i
+                                                        class="ti-more-alt"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#">Open</a>
+                                                    <a class="dropdown-item" href="#">Restore</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item text-danger" href="#">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </li>
+                                <li class="chat-list-item">
+                                    <figure class="avatar user-online">
+                                        <span class="avatar-title bg-success rounded-circle">M</span>
+                                    </figure>
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-1 mt-1">Surfiya Zakir</h3>
+                                            <p>What's up, how are you?</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <small>Yesterday</small>
+                                            <div class="dropdown">
+                                                <a class="more dropdown-toggle" data-toggle="dropdown" href="#"><i
+                                                        class="ti-more-alt"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#">Open</a>
+                                                    <a class="dropdown-item" href="#">Restore</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item text-danger" href="#">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </li>
+                                <li class="chat-list-item">
+                                    <figure class="avatar user-online">
+                                        <span class="avatar-title bg-warning rounded-circle">A</span>
+                                    </figure>
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-1 mt-1">John Ive</h3>
+                                            <p>What's up, how are you?</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <small>03:41 PM</small>
+                                            <div class="dropdown">
+                                                <a class="more dropdown-toggle" data-toggle="dropdown" href="#"><i
+                                                        class="ti-more-alt"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#">Open</a>
+                                                    <a class="dropdown-item" href="#">Restore</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item text-danger" href="#">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="chat-list-item">
+                                    <figure class="avatar user-online">
+                                        <span class="avatar-title bg-info rounded-circle">D</span>
+                                    </figure>
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-1 mt-1">Goria Coast</h3>
+                                            <p>What's up, how are you?</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <small>03:41 PM</small>
+                                            <div class="dropdown">
+                                                <a class="more dropdown-toggle" data-toggle="dropdown" href="#"><i
+                                                        class="ti-more-alt"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#">Open</a>
+                                                    <a class="dropdown-item" href="#">Restore</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item text-danger" href="#">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sidebar" id="notification">
+                        <div class="text-left mb-2 mt-3">
+                            <h2 class="title-text"><b>Notification</b></h2>
+                        </div>
+                        <div class="form-content">
+                            <form action="#" class="mb-3 mt-1">
+                                <input class="form-control" placeholder="Seacrh notification.." type="text">
+                            </form>
+                        </div>
+                        <div class="chat-list-content">
+                            <ul class="chat-list">
+                                <li class="chat-list-item">
+                                    <figure class="avatar user-online">
+                                        <span class="avatar-title bg-secondary rounded-circle"><i
+                                                class="ti-zip"></i></span>
+                                    </figure>
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-1 mt-1">file.txt</h3>
+                                            <p>What's up, how are you?</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <small>03:41 PM</small>
+                                            <div class="dropdown">
+                                                <a class="more dropdown-toggle" data-toggle="dropdown" href="#"><i
+                                                        class="ti-more-alt"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#">Action</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item text-danger" href="#">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="chat-list-item">
+                                    <figure class="avatar user-online">
+									<span class="avatar-title bg-secondary rounded-circle"><i
+                                            class="ti-video-camera"></i></span>
+                                    </figure>
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-1 mt-1">Hurin Seary</h3>
+                                            <p>You missed a video call.</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <small>03:41 PM</small>
+                                            <div class="dropdown">
+                                                <a class="more dropdown-toggle" data-toggle="dropdown" href="#"><i
+                                                        class="ti-more-alt"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#">Action</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item text-danger" href="#">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="chat-list-item">
+                                    <figure class="avatar user-online">
+									<span class="avatar-title bg-secondary rounded-circle"><i
+                                            class="ti-heart"></i></span>
+                                    </figure>
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-1 mt-1">Surfiya Zakir</h3>
+                                            <p>You have got a heart</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <small>03:41 PM</small>
+                                            <div class="dropdown">
+                                                <a class="more dropdown-toggle" data-toggle="dropdown" href="#"><i
+                                                        class="ti-more-alt"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#">Action</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item text-danger" href="#">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="chat-list-item">
+                                    <figure class="avatar user-online">
+									<span class="avatar-title bg-secondary rounded-circle"><i
+                                            class="ti-harddrives"></i></span>
+                                    </figure>
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-1 mt-1">Low Memory</h3>
+                                            <p>Please update with new plan</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <small>03:41 PM</small>
+                                            <div class="dropdown">
+                                                <a class="more dropdown-toggle" data-toggle="dropdown" href="#"><i
+                                                        class="ti-more-alt"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#">Action</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item text-danger" href="#">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="chat-list-item">
+                                    <figure class="avatar user-online">
+                                        <span class="avatar-title bg-secondary rounded-circle"><i
+                                                class="ti-zip"></i></span>
+                                    </figure>
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-1 mt-1">file.txt</h3>
+                                            <p>What's up, how are you?</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <small>03:41 PM</small>
+                                            <div class="dropdown">
+                                                <a class="more dropdown-toggle" data-toggle="dropdown" href="#"><i
+                                                        class="ti-more-alt"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#">Action</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item text-danger" href="#">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="chat-list-item">
+                                    <figure class="avatar user-online">
+									<span class="avatar-title bg-secondary rounded-circle"><i
+                                            class="ti-video-camera"></i></span>
+                                    </figure>
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-1 mt-1">Hurin Seary</h3>
+                                            <p>You missed a video call.</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <small>03:41 PM</small>
+                                            <div class="dropdown">
+                                                <a class="more dropdown-toggle" data-toggle="dropdown" href="#"><i
+                                                        class="ti-more-alt"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#">Action</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item text-danger" href="#">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="chat-list-item">
+                                    <figure class="avatar user-online">
+									<span class="avatar-title bg-secondary rounded-circle"><i
+                                            class="ti-heart"></i></span>
+                                    </figure>
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-1 mt-1">Surfiya Zakir</h3>
+                                            <p>You have got a heart</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <small>03:41 PM</small>
+                                            <div class="dropdown">
+                                                <a class="more dropdown-toggle" data-toggle="dropdown" href="#"><i
+                                                        class="ti-more-alt"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#">Action</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item text-danger" href="#">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="chat-list-item">
+                                    <figure class="avatar user-online">
+									<span class="avatar-title bg-secondary rounded-circle"><i
+                                            class="ti-harddrives"></i></span>
+                                    </figure>
+                                    <div class="list-body">
+                                        <div class="chat-bttn">
+                                            <h3 class="mb-1 mt-1">Low Memory</h3>
+                                            <p>Please update with new plan</p>
+                                        </div>
+                                        <div class="list-action mt-2 text-right">
+                                            <small>03:41 PM</small>
+                                            <div class="dropdown">
+                                                <a class="more dropdown-toggle" data-toggle="dropdown" href="#"><i
+                                                        class="ti-more-alt"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#">Action</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item text-danger" href="#">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="sidebar" id="settings">
+                        <div class="text-left mb-2 mt-3">
+                            <h2 class="title-text"><b>Account</b> Settings </h2>
+                        </div>
+                        <div class="chat-list-content mb-3 mt-3">
+                            <div aria-multiselectable="true" class="panel-group" id="accordion" role="tablist">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" id="headingOne" role="tab">
+                                        <h4 class="panel-title"><a aria-controls="collapseOne" aria-expanded="true"
+                                                                   class="collapsed" data-parent="#accordion"
+                                                                   data-toggle="collapse"
+                                                                   href="#collapseOne" role="button">My
+                                            Profile <span>Configure
+												your preferences.</span></a></h4>
+                                    </div>
+                                    <div aria-labelledby="headingOne" class="panel-collapse collapse" id="collapseOne"
+                                         role="tabpanel">
+                                        <div class="panel-body">
+                                            <form action="#" class="mb-3 mt-3">
+                                                <input class="form-control mb-3" placeholder="Name" type="text">
+                                                <input class="form-control mb-3" placeholder="City" type="text">
+                                                <input class="form-control mb-3" placeholder="Phone" type="text">
+                                                <input class="form-control mb-3" placeholder="Website" type="text">
+                                                <textarea class="mb-3" cols="30" id="bio" name="name"
+                                                          placeholder="Write a few words that describe you.."
+                                                          rows="4"></textarea>
+                                                <button>Save</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" id="headingTwo" role="tab">
+                                        <h4 class="panel-title"><a aria-controls="collapseTwo" aria-expanded="true"
+                                                                   class="collapsed" data-parent="#accordion"
+                                                                   data-toggle="collapse"
+                                                                   href="#collapseTwo" role="button">Privacy
+                                            & Safety
+                                            <span>Configure your preferences.</span></a></h4>
+                                    </div>
+                                    <div aria-labelledby="headingTwo" class="panel-collapse collapse" id="collapseTwo"
+                                         role="tabpanel">
+                                        <div class="panel-body">
+                                            <form action="#" class="mb-3 mt-3">
+                                                <input class="form-control mb-3" placeholder="Current Password"
+                                                       type="text">
+                                                <input class="form-control mb-3" placeholder="New Password" type="text">
+                                                <input class="form-control mb-3" placeholder="Reset Password"
+                                                       type="text">
+                                                <button>Save</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" id="headingThree" role="tab">
+                                        <h4 class="panel-title"><a aria-controls="collapseThree" aria-expanded="true"
+                                                                   class="collapsed" data-parent="#accordion"
+                                                                   data-toggle="collapse"
+                                                                   href="#collapseThree" role="button">Social
+                                            Links <span>Configure
+												your preferences.</span></a></h4>
+                                    </div>
+                                    <div aria-labelledby="headingThree" class="panel-collapse collapse"
+                                         id="collapseThree"
+                                         role="tabpanel">
+                                        <div class="panel-body">
+                                            <form action="#" class="mb-3 mt-3">
+                                                <div class="social-link facebook"><i
+                                                        class="ti-facebook bg-facebook"></i><input
+                                                        class="form-control mb-3"
+                                                        placeholder="https://www.facebook.com/"
+                                                        type="text">
+                                                </div>
+                                                <div class="social-link facebook"><i
+                                                        class="ti-twitter-alt bg-twitter"></i><input
+                                                        class="form-control mb-3"
+                                                        placeholder="https://www.twitter.com/"
+                                                        type="text">
+                                                </div>
+                                                <div class="social-link facebook"><i
+                                                        class="ti-google bg-google"></i><input
+                                                        class="form-control mb-3" placeholder="https://www.google.com/"
+                                                        type="text"></div>
+                                                <div class="social-link facebook"><i
+                                                        class="ti-pinterest bg-pinterest"></i><input
+                                                        class="form-control mb-3"
+                                                        placeholder="https://www.pinterest.com/"
+                                                        type="text">
+                                                </div>
+                                                <div class="social-link facebook"><i
+                                                        class="ti-linkedin bg-linkedIn"></i><input
+                                                        class="form-control mb-3"
+                                                        placeholder="https://www.linkedin.com/"
+                                                        type="text">
+                                                </div>
+                                                <div class="social-link facebook"><i
+                                                        class="ti-dribbble bg-behance"></i><input
+                                                        class="form-control mb-3"
+                                                        placeholder="https://www.dribbble.com/"
+                                                        type="text">
+                                                </div>
+                                                <div class="social-link facebook"><i
+                                                        class="ti-github bg-github"></i><input
+                                                        class="form-control mb-3" placeholder="https://www.github.com/"
+                                                        type="text"></div>
+                                                <div class="social-link facebook mb-3"><i
+                                                        class="ti-skype bg-skype"></i><input class="form-control mb-3"
+                                                                                             placeholder="https://www.skype.com/"
+                                                                                             type="text">
+                                                </div>
+                                                <button>Save</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" id="headingFour" role="tab">
+                                        <h4 class="panel-title"><a aria-controls="collapseFour" aria-expanded="true"
+                                                                   class="collapsed" data-parent="#accordion"
+                                                                   data-toggle="collapse"
+                                                                   href="#collapseFour" role="button">Appearance
+                                            <span>Configure
+												your preferences.</span></a></h4>
+                                    </div>
+                                    <div aria-labelledby="headingFour" class="panel-collapse collapse" id="collapseFour"
+                                         role="tabpanel">
+                                        <div class="panel-body">
+                                            <div class="switch-box">
+                                                <h4>Allow connected contacts</h4>
+                                                <label class="switch float-right mb-0" for="checkbox1">
+                                                    <input id="checkbox1" type="checkbox"/>
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </div>
+                                            <div class="switch-box">
+                                                <h4>Confirm message requests</h4>
+                                                <label class="switch float-right mb-0" for="checkbox2">
+                                                    <input checked id="checkbox2" type="checkbox"/>
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </div>
+                                            <div class="switch-box">
+                                                <h4>Developer mode options</h4>
+                                                <label class="switch float-right mb-0" for="checkbox">
+                                                    <input id="checkbox" type="checkbox"/>
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="chat-content">
+                    <!-- chat header -->
+                    <div class="chat-header">
+                        <div class="chat-header-user">
+                            <figure class="avatar">
+                                <img alt="image" class="rounded-circle" th:src="@{../static/images/user-9.png}">
+                            </figure>
+                            <div>
+                                <h5 class="mt-2 mb-0">{{receiveName}}</h5>
+                                <small class="text-success">Typing....</small>
+                            </div>
+                        </div>
+                        <div class="chat-header-action">
+                            <ul class="list-inline mb-0 mt-2">
+                                <li class="list-inline-item not-mobile"><a class="bttn-box-round" href="#"><i
+                                        class="ti-microphone"></i></a></li>
+                                <li class="list-inline-item not-mobile"><a class="bttn-box-round" href="#"
+                                                                           id="videocall-bttn"><i
+                                        class="ti-video-camera"></i></a></li>
+                                <li class="list-inline-item d-xl-none d-lg-none"><a class="bttn-box-round back-chat-div"
+                                                                                    href="#"><i
+                                        class="ti-arrow-left"></i></a></li>
+                                <li class="list-inline-item">
+                                    <a class="bttn-box-round" data-toggle="dropdown" href="#"><i
+                                            class="ti-more-alt"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item profile-detail-bttn" href="#">个人信息</a>
+                                        <a class="dropdown-item" href="#">发送图片</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item text-danger" href="#">Block</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- chat header -->
+                    <!-- chat body -->
+                    <div class="chat-body" style="overflow: hidden;outline: none;">
+                        <div class="messages-content">
+                            <!--聊天记录-->
+                            <div :class="{'outgoing-message':item.sendId==myId}" class="message-item"
+                                 v-for="item in chatRecords">
+                                <div class="message-user">
+                                    <figure class="avatar">
+                                        <img alt="image" th:src="@{../static/images/user-9.png}">
+                                    </figure>
+                                    <div>
+                                        <h5>{{item.sendName}}</h5>
+                                        <div class="time">{{item.receiveTime}}</div>
+                                    </div>
+                                </div>
+                                <div class="message-wrap" v-if="item.msgType == 0">{{item.msg}}</div>
+                                <!--<figure v-if="item.msgType == 1">-->
+                                <!--<img v-bind:src="{{item.fileUrl}}"-->
+                                <!--class="w-75 img-fluid rounded"-->
+                                <!--alt="image">-->
+                                <!--</figure>-->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- chat body -->
+                    <!-- chat footer -->
+                    <div class="chat-footer">
+                        <form action="#">
+                            <input autocomplete="off" id="sendMsg" placeholder="Message Alice Maghyn.." type="text"
+                                   v-model="sendMsgText">
+                            <button :disabled="receiveId==''" @click="sendMsg(0)" type="button"><img
+                                    alt="send"
+                                    th:src="@{../static/images/send.png}"></button>
+                        </form>
+                    </div>
+                    <!-- chat footer -->
+                </div>
+
+                <div class="right-sidebar" style="overflow: hidden;outline: none;">
+                    <div class="profile-content scroll-profile">
+                        <header>
+                            <h2 class="title-text">个人简介</h2>
+                            <a class="close-icon float-right" href="#"><i class="ti-close  text-danger"></i></a>
+                        </header>
+                        <div class="text-center mt-4">
+                            <figure class="avatar avatar-xl mb-4">
+                                <img alt="image" class="rounded-circle" th:src="@{../static/images/user-10.png}">
+                            </figure>
+                            <h5 class="mb-0" th:text="${session.loginUser.userName}"></h5>
+                            <small class="text-success" th:text="${session.loginUser.email}"></small>
+
+                            <ul class="social-link list-inline mt-3">
+                                <li class="list-inline-item"><a href="#"><i class="ti-facebook bg-facebook"></i></a>
+                                </li>
+                                <li class="list-inline-item"><a href="#"><i class="ti-twitter-alt bg-twitter"></i></a>
+                                </li>
+                                <li class="list-inline-item"><a href="#"><i class="ti-google bg-google"></i></a></li>
+                                <li class="list-inline-item"><a href="#"><i class="ti-pinterest bg-pinterest"></i></a>
+                                </li>
+                                <li class="list-inline-item"><a href="#"><i class="ti-linkedin bg-linkedIn"></i></a>
+                                </li>
+                                <li class="list-inline-item"><a href="#"><i class="ti-github bg-github"></i></a></li>
+                            </ul>
+
+                            <ul class="profile-detail list-inline pt-5">
+                                <li class="list-block-item text-left">
+                                    <h6 class="mb-0">Website</h6>
+                                    <small>www.wpvisual.com</small>
+                                </li>
+                                <li class="list-block-item text-left">
+                                    <h6 class="mb-0">Phone</h6>
+                                    <small>+111 990 332 2223</small>
+                                </li>
+                                <li class="list-block-item text-left">
+                                    <h6 class="mb-0">City</h6>
+                                    <small>Autria</small>
+                                </li>
+                                <li class="list-block-item text-left">
+                                    <h6 class="mb-0">Get notification</h6>
+                                    <small>Allow connected contacts</small>
+                                    <div class="switch-box float-right">
+                                        <label class="switch float-right mb-0" for="checkbox5">
+                                            <input id="checkbox5" type="checkbox">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- main wrapper -->
+
+        <div class="model-bg"></div>
+
+
+        <!-- SCRIPTS -->
+        <script src="https://www.jq22.com/jquery/jquery-3.3.1.js"></script>
+        <script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+        <script th:src="@{../static/js/plugin.js}"></script>
+        <script th:src="@{../static/js/main.min.js}"></script>
+        <script type="text/javascript">
+            let app = new Vue({
+                el: '#app',
+                data() {
+                    return {
+                        friendList: [],
+                        ws: {},
+                        receiveId: '',
+                        receiveName: '请选择好友',
+                        chatRecords: [],
+                        myId: $('#userId').val(),
+                        sendMsgText: ''
+                    }
+                },
+                created() {
+                    this.login();
+                },
+                methods: {
+                    // 连接
+                    login() {
+                        const self = this;
+                        //建立连接
+                        this.ws = new WebSocket("ws://localhost:8080/chatRoom?id=" + this.myId);
+                        console.log(this.ws);
+                        //客户端收到服务端发送的关闭连接的请求时，触发onclose事件
+                        this.ws.onclose = function (evt) {
+                            console.log("WebSocketClosed!");
+                            console.log(evt);
+                        };
+                        //如果出现连接，处理，接收，发送数据失败的时候就会触发onerror事件
+                        this.ws.onerror = function (evt) {
+                            console.log("WebSocketError!");
+                            console.log(evt);
+                        };
+                        //客户端收到服务端发来的消息时，会触发onmessage事件，参数evt.data中包含server传输过来的数据
+                        this.ws.onmessage = function (evt) {
+                            console.log(evt);
+                            let data = JSON.parse(evt.data);
+                            switch (data.msgType) {
+                                case 0:
+                                    // 打开聊天记录
+                                    if (data.sendId === self.receiveId || data.receiveId === self.receiveId) {
+                                        self.chatRecords.push(data);
+                                    } else {
+                                        // 增加提示
+                                        for (let i = 0; i < self.friendList.length; i++) {
+                                            let item = self.friendList[i];
+                                            if (item.id === data.sendId) {
+                                                item.unreadMsgNum++;
+                                                item.lastMsg = data.msg;
+                                                item.lastMsgTime = data.receiveTime;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    break;
+                                case 1:
+                                    // 图片消息
+                                    break;
+                                case 2:
+                                    // 刷新好友列表
+                                    self.refreshFriends();
+                                    break;
+                                default:
+                                    break;
+
+                            }
+                        };
+                    },
+                    // 更新好友列表
+                    refreshFriends() {
+                        let self = this;
+                        $.ajax({
+                            type: "get",
+                            url: "/friend/queryOnLineFriends",
+                            async: true,
+                            success: function (res) {
+                                console.log(res);
+                                if (res.success) {
+                                    self.friendList = res.obj;
+                                } else {
+                                    alert("请求失败！！")
+                                }
+                            },
+                            error: function (msg) {
+                                console.error(msg);
+                            }
+                        })
+                    },
+                    // 切换好友
+                    clickFriend(item) {
+                        console.log(item);
+                        if (this.receiveId !== item.id) {
+                            item.unreadMsgNum = 0;
+                            this.receiveId = item.id;
+                            this.receiveName = item.userName;
+                            // 获取聊天记录
+                            this.chatRecords = [];
+                            let self = this;
+                            $.ajax({
+                                type: "get",
+                                url: "/msg/queryChatRecords",
+                                async: true,
+                                data: {
+                                    receiveId: item.id,
+                                    sendId: self.myId
+                                },
+                                success: function (res) {
+                                    console.log(res);
+                                    if (res.success) {
+                                        self.chatRecords = res.obj;
+                                    } else {
+                                        alert("请求失败！！")
+                                    }
+                                },
+                                error: function (msg) {
+                                    console.error(msg);
+                                }
+                            })
+                        }
+                    },
+                    // 发送消息;0文字消息，2上线刷新
+                    sendMsg(type) {
+                        switch (type) {
+                            case 0:
+                                let message = {
+                                    receiveId: this.receiveId,
+                                    sendId: this.myId,
+                                    sendName: $('#myName').text(),
+                                    msg: this.sendMsgText,
+                                    msgType: 0,
+                                    receiveTime: new Date()
+                                };
+                                //发送消息
+                                console.log(message);
+                                this.ws.send(JSON.stringify(message));
+                                this.sendMsgText = '';
+                                break;
+                            case 2:
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            })
+
+        </script>
+
+    </body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>xChat -Responsive Multi-purpose HTML5 Template</title>
+        <meta name="description" content="Cabe - Responsive Multi-purpose HTML5 Template">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+        <!-- STYLESHEETS -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet">
+        <link rel="stylesheet" th:href="@{../static/css/owl.carousel.min.css}" type="text/css" media="all">
+        <link rel="stylesheet" th:href="@{../static/css/owl.theme.default.min.css}" type="text/css" media="all">
+
+        <link rel="stylesheet" th:href="@{../static/css/themify-icons.css}">
+
+        <link rel="stylesheet" th:href="@{../static/css/main.min.css}" type="text/css" media="all">
+
+
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <!-- SCRIPTS -->
+        <script src="https://www.jq22.com/jquery/jquery-3.3.1.js"></script>
+        <script th:src="@{../static/js/plugin.js}"></script>
+        <script th:src="@{../static/js/main.min.js}"></script>
+
+        <script>
+            $(function () {
+                $('#login').click(function () {
+                    $.ajax({
+                        url: "/user/login",
+                        type: "post",
+                        async: true,
+                        data: {
+                            email: $('#email').val(),
+                            password: $('#password').val()
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            if (data.success) {
+                                window.location.href = '/go/main';
+                            } else {
+                                alert("请求失败");
+                            }
+                        },
+                        error: function (msg) {
+                            console.error(msg);
+                        }
+                    })
+                })
+            })
+        </script>
+    </head>
+
+    <body>
+        <main class="bg-grey" style="background-image: url(../static/images/bg-2.png);">
+            <div class="d-flex align-items-center mx-auto login-form">
+                <div class="container">
+                    <div class="card">
+                        <div class="card-body p-5">
+                            <form id="loginForm">
+                                <h3 class="title-text mb-5"><b>Login</b></h3>
+                                <div class="input-group mb-3">
+                                    <i class="ti-email"></i>
+                                    <input class="form-control form-control-lg" id="email" type="email" name="email"
+                                           placeholder="Email" required="">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <i class="ti-lock"></i>
+                                    <input class="form-control form-control-lg" id="password" type="password"
+                                           name="password"
+                                           placeholder="Password" required="">
+                                </div>
+                                <button class="btn btn-block btn-lg btn-primary mt-2" type="button" id="login">Sign In
+                                </button>
+                                <p class="mt-4 text-center">Don't have account? <a class="link-primary"
+                                                                                   th:href="@{/go/register}">Sign
+                                    Up</a>.</p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </body>
+
+</html>
